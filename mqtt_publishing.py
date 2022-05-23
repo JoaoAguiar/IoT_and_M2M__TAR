@@ -10,8 +10,8 @@ from paho.mqtt import client as mqtt_client
 broker = 'broker.emqx.io'
 port = 1883
 
-topic1 = "gas da russia"
-topic2 = "edp"
+topic1 = "python/mqtt1"
+topic2 = "python/mqtt2"
 
 # generate client ID with pub prefix randomly
 client_id = f'python-mqtt-{random.randint(0, 1000)}'
@@ -37,7 +37,7 @@ def publish(client):
 
     while True:
         time.sleep(1)
-        msg = "ola"
+        msg = "ola1"
         result = client.publish(topic1, msg) # result: [0, 1]
         status = result[0]
 
@@ -45,6 +45,18 @@ def publish(client):
             print(f"Send `{msg}` to topic `{topic1}`")
         else:
             print(f"Failed to send message to topic {topic1}")
+        
+        msg_count += 1
+
+        time.sleep(1)
+        msg = "ola2"
+        result = client.publish(topic2, msg) # result: [0, 1]
+        status = result[0]
+
+        if status == 0:
+            print(f"Send `{msg}` to topic `{topic2}`")
+        else:
+            print(f"Failed to send message to topic {topic2}")
         
         msg_count += 1
 
