@@ -6,7 +6,7 @@ broker = 'broker.emqx.io'
 port = 1883
 
 topic1 = "python/led"
-topic2 = "python/mqtt2"
+topic2 = "python/temp"
 
 # generate client ID with pub prefix randomly
 client_id = f'python-mqtt-{random.randint(0, 100)}'

@@ -10,7 +10,7 @@ broker = 'broker.emqx.io'
 port = 1883
 
 topic1 = "python/led"
-topic2 = "python/mqtt2"
+topic2 = "python/temp"
 
 # generate client ID with pub prefix randomly
 client_id = f'python-mqtt-{random.randint(0, 1000)}'
@@ -46,7 +46,7 @@ def publish(client):
     while True:
         time.sleep(3)
         aux = value(aux)
-        msg = str(aux)
+        msg = aux
         result = client.publish(topic1, msg) # result: [0, 1]
         status = result[0]
 

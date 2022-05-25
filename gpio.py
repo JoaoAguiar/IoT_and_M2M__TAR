@@ -1,4 +1,4 @@
-from ast import Return
+#from ast import Return
 import RPi.GPIO as GPIO
 import time
 def led(aux):
