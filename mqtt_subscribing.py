@@ -5,7 +5,7 @@ from paho.mqtt import client as mqtt_client
 broker = 'broker.emqx.io'
 port = 1883
 
-topic1 = "python/mqtt1"
+topic1 = "python/led"
 topic2 = "python/mqtt2"
 
 # generate client ID with pub prefix randomly
@@ -32,7 +32,7 @@ def subscribe(client: mqtt_client):
         print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
 
     client.subscribe(topic1)
-    client.subscribe(topic2)
+    #client.subscribe(topic2)
     client.on_message = on_message
 
 def run():

@@ -2,21 +2,25 @@ import random
 import time
 
 from paho.mqtt import client as mqtt_client
-#from filex import funcao
+from gpio import led
 
-#def buscar_valor():
-#    valor_que_qeuremos = funcao()
+
 
 broker = 'broker.emqx.io'
 port = 1883
 
-topic1 = "python/mqtt1"
+topic1 = "python/led"
 topic2 = "python/mqtt2"
 
 # generate client ID with pub prefix randomly
 client_id = f'python-mqtt-{random.randint(0, 1000)}'
 username = 'emqx'
 password = 'public'
+
+def value():
+    led_status = led()
+    print("...",led_status)
+    return led_status 
 
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
@@ -36,8 +40,8 @@ def publish(client):
     msg_count = 0
 
     while True:
-        time.sleep(1)
-        msg = "ola1"
+        time.sleep(3)
+        msg = str(value())
         result = client.publish(topic1, msg) # result: [0, 1]
         status = result[0]
 
@@ -48,7 +52,7 @@ def publish(client):
         
         msg_count += 1
 
-        time.sleep(1)
+        time.sleep(3)
         msg = "ola2"
         result = client.publish(topic2, msg) # result: [0, 1]
         status = result[0]
