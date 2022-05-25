@@ -3,8 +3,7 @@ import time
 
 from paho.mqtt import client as mqtt_client
 from gpio import led
-from temp import temp_2
-
+from temp import temperature
 
 broker = 'broker.emqx.io'
 port = 1883
@@ -17,13 +16,14 @@ client_id = f'python-mqtt-{random.randint(0, 1000)}'
 username = 'emqx'
 password = 'public'
 
-def value(aux):
-    led_status = led(aux)
-    print("...",led_status)
+def value(led_aux, temp_aux):
+    led_status = led(led_aux, temp_aux)
+    print("...", led_status)
+
     return led_status 
 
-def temp_1():
-    return temp_2()
+def get_temp():
+    return temperature()
 
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
@@ -41,35 +41,34 @@ def connect_mqtt():
 
 def publish(client):
     msg_count = 0
-    aux = "LED OFF"
+    led_aux = "LED OFF"
 
     while True:
-        time.sleep(3)
-        aux = value(aux)
-        msg = aux
-        result = client.publish(topic1, msg) # result: [0, 1]
+       #time.sleep(2)
+
+        led_aux = value(led_aux, get_temp())
+        msg_1 = led_aux
+        msg_2 = get_temp()
+        
+        result = client.publish(topic1, msg_1)
         status = result[0]
 
         if status == 0:
-            print(f"Send `{msg}` to topic `{topic1}`")
+            print(f"Send `{msg_1}` to topic `{topic1}`")
         else:
             print(f"Failed to send message to topic {topic1}")
         
-        msg_count += 1
+        #time.sleep(2)
 
-        time.sleep(3)
-        msg = str(temp_1())
-        print(msg)
-        result = client.publish(topic2, msg) # result: [0, 1]
-        print("ol",result, msg)
+        result = client.publish(topic2, msg_2)
         status = result[0]
 
         if status == 0:
-            print(f"Send `{msg}` to topic `{topic2}`")
+            print(f"Send `{msg_2}` to topic `{topic2}`")
         else:
             print(f"Failed to send message to topic {topic2}")
         
-        msg_count += 1
+        msg_count += 2
 
 def run():
     client = connect_mqtt()

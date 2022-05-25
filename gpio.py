@@ -1,30 +1,86 @@
-#from ast import Return
 import RPi.GPIO as GPIO
 import time
-def led(aux):
+
+def led(led, temp):
+
 	GPIO.setmode(GPIO.BCM)
-	GPIO.setup(23,GPIO.OUT)
-	ledz = aux
-	while True:
-		print(ledz)
-		if(ledz=="LED ON"):
-			print("oi")
-			GPIO.output(23,GPIO.HIGH)
-			#print("LED is ON")
-			ledz= "LED ON"
-			time.sleep(3)
+	GPIO.setup(23, GPIO.OUT)
+	GPIO.setup(26, GPIO.OUT)
 
-			ledz = "LED OFF"
-			return ledz
+	print(temp, "...", led)
+	if(int(temp) >= 25):
+		GPIO.output(23, GPIO.LOW)
+		#print("oi1")
+		GPIO.setmode(GPIO.BCM)
+		GPIO.setup(23, GPIO.OUT)
 
-		if(ledz=="LED OFF"):
-			print("oi1")
-			GPIO.output(23,GPIO.LOW)
-			#print("LED is OFF")
-			ledz = "LED OFF"
-			time.sleep(3)
-			print("sle")
-			ledz = "LED ON"
-			return ledz
-#led()
+		ledz = led
+		while True:
+			if(ledz == "LED ON"):
+				GPIO.output(23, GPIO.HIGH)
 
+				print("LED is ON QUENTE")
+				time.sleep(2)
+				ledz = "LED OFF"
+
+				return ledz
+
+			if(ledz=="LED OFF"):
+				GPIO.output(23, GPIO.LOW)
+
+				print("LED is OFF")
+				#time.sleep(2)
+				ledz = "LED ON"
+
+				return ledz
+	elif(int(temp) <=10):
+		#print("oi2")
+
+		GPIO.output(23, GPIO.LOW)
+		GPIO.setmode(GPIO.BCM)
+		GPIO.setup(26, GPIO.OUT)
+
+		ledz = led
+		
+		while True:
+			if(ledz == "LED ON"):
+				GPIO.output(26, GPIO.HIGH)
+
+				print("LED is ON COLD")
+				return ledz
+
+			if(ledz=="LED OFF"):
+				GPIO.output(26, GPIO.LOW)
+
+				print("LED is OFF")
+				#time.sleep(2)
+				ledz = "LED ON"
+
+				return ledz
+	else:
+		#print("oi3") #verde mild
+
+		GPIO.output(23, GPIO.LOW)
+		GPIO.setmode(GPIO.BCM)
+		GPIO.setup(26, GPIO.OUT)
+
+		ledz = led
+		
+		while True:
+			if(ledz == "LED ON"):
+				GPIO.output(26, GPIO.HIGH)
+
+				print("LED is ON MILD")
+				#time.sleep(2)
+				ledz = "LED OFF"
+
+				return ledz
+
+			if(ledz=="LED OFF"):
+				GPIO.output(26, GPIO.LOW)
+
+				print("LED is OFF")
+				time.sleep(2)
+				ledz = "LED ON"
+
+				return ledz
