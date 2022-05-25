@@ -3,7 +3,7 @@ import time
 
 from paho.mqtt import client as mqtt_client
 from gpio import led
-
+from temp import temp_2
 
 
 broker = 'broker.emqx.io'
@@ -17,10 +17,13 @@ client_id = f'python-mqtt-{random.randint(0, 1000)}'
 username = 'emqx'
 password = 'public'
 
-def value():
-    led_status = led()
+def value(aux):
+    led_status = led(aux)
     print("...",led_status)
     return led_status 
+
+def temp_1():
+    return temp_2()
 
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
@@ -38,10 +41,12 @@ def connect_mqtt():
 
 def publish(client):
     msg_count = 0
+    aux = "LED OFF"
 
     while True:
         time.sleep(3)
-        msg = str(value())
+        aux = value(aux)
+        msg = str(aux)
         result = client.publish(topic1, msg) # result: [0, 1]
         status = result[0]
 
@@ -53,8 +58,10 @@ def publish(client):
         msg_count += 1
 
         time.sleep(3)
-        msg = "ola2"
+        msg = str(temp_1())
+        print(msg)
         result = client.publish(topic2, msg) # result: [0, 1]
+        print("ol",result, msg)
         status = result[0]
 
         if status == 0:

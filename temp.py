@@ -25,8 +25,10 @@ def read_temp():
         temp_string = lines[1][equals_pos+2:]
         temp_c = float(temp_string) / 1000.0
         temp_f = temp_c * 9.0 / 5.0 + 32.0
-        return temp_c, temp_f
-	
-while True:
-	print(read_temp())	
-	time.sleep(1)
+        return temp_c
+def temp_2():
+    while True:
+        print(read_temp())
+        time.sleep(1)
+
+        return read_temp()
