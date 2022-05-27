@@ -1,12 +1,12 @@
 import pyttsx3
 
-def sound_temperature(aux,topic):
+def sound_temperature(aux, topic):
     if(topic == "python/temp"):
         engine = pyttsx3.init()
-        print(aux)
-        if(float(aux)>=25.0):
+
+        if(float(aux) >= 25.0):
             engine.say("Hot")
-        elif(float(aux) <=10.0):
+        elif(float(aux) <= 10.0):
             engine.say("Cold")
         else:
             engine.say("Mild")

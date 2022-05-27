@@ -2,84 +2,79 @@ import RPi.GPIO as GPIO
 import time
 
 def led(led, temp):
-
+	# Used to identify the pins correctly
 	GPIO.setmode(GPIO.BCM)
-	GPIO.setup(23, GPIO.OUT)
+	# Each pin needs to be setup with the mode that will be working, in this case we want the output
+	GPIO.setup(23, GPIO.OUT) 
 	GPIO.setup(26, GPIO.OUT)
 
 	print(temp, "...", led)
+
 	if(int(temp) >= 25):
+		# To change the pin level, HIGH to turn it on, and LOW do turn it off
 		GPIO.output(23, GPIO.LOW)
-		#print("oi1")
-		GPIO.setmode(GPIO.BCM)
-		GPIO.setup(23, GPIO.OUT)
 
 		ledz = led
+		
 		while True:
 			if(ledz == "LED ON"):
+				# Turn on the LED
 				GPIO.output(23, GPIO.HIGH)
 
-				print("LED is ON QUENTE")
+				print("LED ON")
 				time.sleep(2)
 				ledz = "LED OFF"
 
 				return ledz
-
-			if(ledz=="LED OFF"):
+			elif(ledz == "LED OFF"):
+				# Turn of the LED
 				GPIO.output(23, GPIO.LOW)
 
-				print("LED is OFF")
-				#time.sleep(2)
+				print("LED OFF")
 				ledz = "LED ON"
 
 				return ledz
-	elif(int(temp) <=10):
-		#print("oi2")
-
-		GPIO.output(23, GPIO.LOW)
-		GPIO.setmode(GPIO.BCM)
-		GPIO.setup(26, GPIO.OUT)
+	elif(int(temp) <= 10):
+		GPIO.output(26, GPIO.LOW)
 
 		ledz = led
 		
 		while True:
 			if(ledz == "LED ON"):
+				# Turn on the LED
 				GPIO.output(26, GPIO.HIGH)
 
-				print("LED is ON COLD")
-				return ledz
+				print("LED ON")
+				ledz = "LED OFF"
 
-			if(ledz=="LED OFF"):
+				return ledz
+			elif(ledz == "LED OFF"):
+				# Turn of the LED
 				GPIO.output(26, GPIO.LOW)
 
 				print("LED is OFF")
-				#time.sleep(2)
 				ledz = "LED ON"
 
 				return ledz
 	else:
-		#print("oi3") #verde mild
-
-		GPIO.output(23, GPIO.LOW)
-		GPIO.setmode(GPIO.BCM)
-		GPIO.setup(26, GPIO.OUT)
+		GPIO.output(26, GPIO.LOW)
 
 		ledz = led
 		
 		while True:
 			if(ledz == "LED ON"):
+				# Turn on the LED
 				GPIO.output(26, GPIO.HIGH)
 
-				print("LED is ON MILD")
-				#time.sleep(2)
+				print("LED ON")
 				ledz = "LED OFF"
 
 				return ledz
-
-			if(ledz=="LED OFF"):
+			elif(ledz == "LED OFF"):
+				# Turn of the LED
 				GPIO.output(26, GPIO.LOW)
 
-				print("LED is OFF")
+				print("LED OFF")
 				time.sleep(2)
 				ledz = "LED ON"
 
