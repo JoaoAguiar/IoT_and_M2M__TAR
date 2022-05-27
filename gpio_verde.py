@@ -13,7 +13,7 @@ def led():
 		GPIO.output(26,GPIO.HIGH)
 		#print("LED is ON")
 		#ledz= "LED ON"
-		time.sleep(3)
+		time.sleep(2)
 
 		#ledz = "LED OFF"
 
@@ -22,7 +22,7 @@ def led():
 		GPIO.output(26,GPIO.LOW)
 		print("LED is OFF")
 		#ledz = "LED OFF"
-		time.sleep(3)
+		time.sleep(2)
 		#ledz = "LED ON"
 led()
 

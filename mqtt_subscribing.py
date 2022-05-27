@@ -25,7 +25,7 @@ def connect_mqtt() -> mqtt_client:
     client.username_pw_set(username, password)
     client.on_connect = on_connect
     client.connect(broker, port)
-
+    client.username_pw_set("emqx", "public")
     return client
 
 def subscribe(client: mqtt_client):
