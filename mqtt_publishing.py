@@ -9,7 +9,7 @@ broker = 'broker.emqx.io'
 port = 1883
 
 topic1 = "LED"
-topic2 = "TEMPERATURE CELSIUS"
+topic2 = "TEMPERATURE"
 
 # generate client ID with pub prefix randomly
 client_id = f'python-mqtt-{random.randint(0, 1000)}'
@@ -18,7 +18,6 @@ password = 'public'
 
 def value(led_aux, temp_aux):
     led_status = led(led_aux, temp_aux)
-    #print("...", led_status)
 
     return led_status 
 
@@ -31,6 +30,7 @@ def connect_mqtt():
             print("Connected to MQTT Broker!")
         else:
             print("Failed to connect, return code %d\n", rc)
+
     client = mqtt_client.Client(client_id)
     client.username_pw_set(username, password)
     client.on_connect = on_connect
@@ -39,12 +39,9 @@ def connect_mqtt():
     return client
 
 def publish(client):
-    msg_count = 0
     led_aux = "LED OFF"
 
     while True:
-       #time.sleep(2)
-
         led_aux = value(led_aux, get_temp())
         msg_1 = led_aux
         msg_2 = get_temp()
@@ -57,8 +54,6 @@ def publish(client):
         else:
             print(f"Failed to send message to topic {topic1}")
         
-        #time.sleep(2)
-
         result = client.publish(topic2, msg_2)
         status = result[0]
 
@@ -67,8 +62,6 @@ def publish(client):
         else:
             print(f"Failed to send message to topic {topic2}")
         
-        msg_count += 2
-
 def run():
     client = connect_mqtt()
     client.loop_start()
