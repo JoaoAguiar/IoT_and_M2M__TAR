@@ -7,8 +7,6 @@ The whole process was planned to be automatized and to follow a publish/subscrib
 
 In this case, the digital sensor has to measure the temperature, registers it by sending it to the RaspberryPi, and it’s acting as a server sends it to our personal computer showcasing the actual ambient temperature and with that, turn a specific coloured LED and play a sound.
 
-IMAGEM
-
 ## IoT Model
 
 We can define an IoT system with a set of sensors, micro-controllers, and actuators. The sensors act as input to produce and collect data, and the microcontrollers process the data. Lastly, the actuators also function as output generating conditioned actions by a previously established set of instructions.
@@ -21,16 +19,12 @@ A Publish-Subscribe model is composed by a set of messages, a topic that is asso
 
 MQTT is an OASIS Advanced Message Queuing Protocol (AMQP) for the Internet of Things (IoT). It is a lightweight and efficient publish-subscribe network protocol that transports messages between devices over a TCP/IP connection. Besides that, it's bi-directional in terms of connections, which allows for messaging between the device to the cloud and the cloud to the device.
 
-IMAGEM
-
 We can identify three main components: Publish (MQTT client), Broker (MQTT server) and Subscriber (MQTT client).
 
 The MQTT Client is a device that uses the protocol. It is responsible for establishing connection, create and publish messages or subscribe a topic.
 
 An MQTT Server is responsible for accepting connections, publish messages and process requests. The server acts as an intermediary party that establishes rules between the publisher and the subscriber.
 
+## Project Demo
 
-## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
-
+https://www.youtube.com/watch?v=JISojc4QYFk
